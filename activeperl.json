@@ -7,12 +7,6 @@
             "hash": "20e73176ce63dc7582aefe3058a1911857095ea490e56521052f513fc563a985"
         }
     },
-    "post_install": [
-        "# enable standard idiomatic access to user's home directory",
-        "## remove HomeDir section from portable.perl (disables Portable.pm override of File::HomeDir)",
-        "## NOTE: conversion to byte[] avoids adding an extra trailing newline to the output file",
-        "[System.IO.File]::WriteAllBytes(\"$dir\\portable.perl\", ([byte[]][char[]]((Get-Content -Raw \"$dir\\portable.perl\") -replace \"(?ms)^HomeDir:.*?^(?=\\S)\",\"\")))"
-    ],
     "env_add_path": [
         "bin"
     ]
