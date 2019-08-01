@@ -1,0 +1,39 @@
+{
+    "version": "2.1.701",
+    "homepage": "https://www.microsoft.com/net/",
+    "description": ".NET is a free, cross-platform, open source developer platform for building many different types of applications.",
+    "license": "MIT",
+    "architecture": {
+        "64bit": {
+            "url": "https://dotnetcli.blob.core.windows.net/dotnet/Sdk/2.1.701/dotnet-sdk-2.1.701-win-x64.zip",
+            "hash": "sha512:a5517fd1b9e9bb9aebc70f71bd575b72e1ac47dbe41419008c25c756a1150ee0b2ae0e67c0bcc36c00a02ceb66e146d6e20ce24293c3706b5bcb2caf67184994"
+        },
+        "32bit": {
+            "url": "https://dotnetcli.blob.core.windows.net/dotnet/Sdk/2.1.701/dotnet-sdk-2.1.701-win-x86.zip",
+            "hash": "sha512:32548ce528fb4f4e860804477a818fd1198b935fe9497978b50d8fba43d8bcfc1b82ac5ed33250d83013db2e63c47196dc56fdabab79180447d7b71f29168435"
+        }
+    },
+    "bin": "dotnet.exe",
+    "persist": "sdk",
+    "env_set": {
+        "DOTNET_ROOT": "$dir"
+    },
+    "post_install": "Move-Item \"$(join-path $original_dir sdk.original)\\*\" \"$persist_dir\\sdk\\\" -Force -ErrorAction SilentlyContinue",
+    "checkver": {
+        "url": "https://dotnetcli.blob.core.windows.net/dotnet/release-metadata/releases-index.json",
+        "jsonpath": "$..releases-index[?(@.support-phase == 'current')].latest-sdk"
+    },
+    "autoupdate": {
+        "architecture": {
+            "64bit": {
+                "url": "https://dotnetcli.blob.core.windows.net/dotnet/Sdk/$version/dotnet-sdk-$version-win-x64.zip"
+            },
+            "32bit": {
+                "url": "https://dotnetcli.blob.core.windows.net/dotnet/Sdk/$version/dotnet-sdk-$version-win-x86.zip"
+            }
+        },
+        "hash": {
+            "url": "https://dotnetcli.blob.core.windows.net/dotnet/checksums/$version-sdk-sha.txt"
+        }
+    }
+}
